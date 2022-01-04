@@ -1,3 +1,10 @@
+//
+//  simple_subject.dart
+//  key_observer
+//
+//  Created by Nguyen Duc Hiep on 01/12/2021.
+//
+
 import 'dart:math';
 
 import 'package:key_observer/subject.dart';
