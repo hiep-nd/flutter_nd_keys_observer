@@ -1,32 +1,36 @@
 //
-//  simple_subject.dart
-//  key_observer
+//  nd_simple_subject.dart
+//  nd_keys_observer
 //
 //  Created by Nguyen Duc Hiep on 01/12/2021.
 //
 
 import 'dart:math';
 
-import 'package:key_observer/subject.dart';
+import 'package:nd_keys_observer/nd_subject.dart';
 
-extension SimpleSubject on Subject {
-  static Subject create() => _SimpleSubject();
+extension NDSimpleSubject on NDSubject {
+  static NDSubject create() => _NDSimpleSubject();
 }
 
-class _SimpleSubjectObserver {
-  final Keys keys;
-  final Callback callback;
+class _NDSimpleSubjectObserver {
+  final NDKeys keys;
+  final NDCallback callback;
 
-  _SimpleSubjectObserver({required this.keys, required this.callback});
+  _NDSimpleSubjectObserver({required this.keys, required this.callback});
 }
 
-class _SimpleSubject extends Subject {
-  final Map<Handle, _SimpleSubjectObserver> _observers = {};
+class _NDSimpleSubject extends NDSubject {
+  final Map<NDHandle, _NDSimpleSubjectObserver> _observers = {};
 
   @override
-  void didChange(Keys keys) {
+  void didChange(NDKeys keys, void Function()? action) {
+    if (action != null) {
+      action();
+    }
+
     _observers.forEach((handle, observer) {
-      Keys observedKeys = Keys.empty(growable: true);
+      var observedKeys = NDKeys.empty(growable: true);
       for (var key in observer.keys) {
         if (keys.any((element) => isRelative(element, key))) {
           observedKeys.add(key);
@@ -39,14 +43,15 @@ class _SimpleSubject extends Subject {
   }
 
   @override
-  Handle observe(Keys keys, Callback callback) {
-    Handle handle = _observers.isEmpty ? 0 : _observers.keys.reduce(max) + 1;
-    _observers[handle] = _SimpleSubjectObserver(keys: keys, callback: callback);
+  NDHandle observe(NDKeys keys, NDCallback callback) {
+    NDHandle handle = _observers.isEmpty ? 0 : _observers.keys.reduce(max) + 1;
+    _observers[handle] =
+        _NDSimpleSubjectObserver(keys: keys, callback: callback);
     return handle;
   }
 
   @override
-  void removeObserver(Handle handle) {
+  void removeObserver(NDHandle handle) {
     _observers.remove(handle);
   }
 
@@ -96,7 +101,7 @@ class _Node {
   }
 }
 
-class Subject {
+class NDSubject {
   int observe(List<String> keys, void Function(List<String> keys) callback) {
     return 0;
   }

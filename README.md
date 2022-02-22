@@ -1,7 +1,7 @@
-# key_observer
-key_observer is a small library to observe by key path with callback.
+# nd_keys_observer
+nd_keys_observer is a small library to observe by key path with callback.
 ```dart
-Subject subject = SimpleSubject.create();
+NDSubject subject = NDSimpleSubject.create();
 subject.observe(["myProperty", "myProperty2.myProperty"], (keys) {
 	print(keys);
 });
