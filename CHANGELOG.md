@@ -12,3 +12,7 @@
   * key_observer -> nd_keys_observer
   * Name -> NDName
 * Added widget ```NDObserver```
+
+## 1.0.0
+
+* Updated ```NDHandle```

@@ -5,8 +5,6 @@
 //  Created by Nguyen Duc Hiep on 01/12/2021.
 //
 
-import 'dart:math';
-
 import 'package:nd_keys_observer/nd_subject.dart';
 
 extension NDSimpleSubject on NDSubject {
@@ -21,7 +19,7 @@ class _NDSimpleSubjectObserver {
 }
 
 class _NDSimpleSubject extends NDSubject {
-  final Map<NDHandle, _NDSimpleSubjectObserver> _observers = {};
+  final Map<_NDSimpleSubjectHandle, _NDSimpleSubjectObserver> _observers = {};
 
   @override
   void didChange(NDKeys keys, void Function()? action) {
@@ -44,7 +42,7 @@ class _NDSimpleSubject extends NDSubject {
 
   @override
   NDHandle observe(NDKeys keys, NDCallback callback) {
-    NDHandle handle = _observers.isEmpty ? 0 : _observers.keys.reduce(max) + 1;
+    _NDSimpleSubjectHandle handle = _NDSimpleSubjectHandle(this);
     _observers[handle] =
         _NDSimpleSubjectObserver(keys: keys, callback: callback);
     return handle;
@@ -52,12 +50,42 @@ class _NDSimpleSubject extends NDSubject {
 
   @override
   void removeObserver(NDHandle handle) {
-    _observers.remove(handle);
+    if (handle is _NDSimpleSubjectHandle) {
+      _disconnect(this, handle);
+    }
   }
 
   @override
   void dispose() {
+    for (var handle in _observers.keys) {
+      handle._subject = null;
+    }
     _observers.clear();
+  }
+
+  @override
+  bool get isDisposed => _observers.isEmpty;
+}
+
+class _NDSimpleSubjectHandle extends NDHandle {
+  _NDSimpleSubject? _subject;
+
+  _NDSimpleSubjectHandle(_NDSimpleSubject subject) : _subject = subject;
+
+  @override
+  void dispose() {
+    if (_subject != null) {
+      _disconnect(_subject!, this);
+    }
+  }
+
+  @override
+  bool get isDisposed => _subject == null;
+}
+
+void _disconnect(_NDSimpleSubject subject, _NDSimpleSubjectHandle handle) {
+  if (subject._observers.remove(handle) != null) {
+    handle._subject = null;
   }
 }
 

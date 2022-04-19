@@ -44,7 +44,7 @@ void main(List<String> args) {
               // NDObserver
               Builder(builder: (context) {
                 final subject = NDSimpleSubject.create();
-                final data = NDWrapper('');
+                final data = NDVariableWrapper('');
                 void setData(String value) {
                   final keys = value.split(',').map((e) => e.trim()).toList();
                   subject.didChange(keys, () => data.value = value);
@@ -65,7 +65,7 @@ void main(List<String> args) {
                         },
                         child: const Text('Update'),
                       ),
-                      NDObserver<NDWrapper<String>>(
+                      NDObserver<NDVariableWrapper<String>>(
                         subject: subject,
                         keys: const ['a', 'c'],
                         dataContext: data,

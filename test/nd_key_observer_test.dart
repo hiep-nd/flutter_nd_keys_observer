@@ -28,6 +28,8 @@ void main() {
     changes.clear();
 
     subject.removeObserver(handle);
+
+    expect(handle.isDisposed, true);
   }
 
   test('Test NDSimpleSubject', () {

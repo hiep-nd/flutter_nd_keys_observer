@@ -79,6 +79,7 @@ class NDObserver<T> extends StatefulWidget {
 class _NDState<T> extends State<NDObserver<T>> {
   NDHandle? _handle;
   final NDKeys keys = [];
+
   @override
   void initState() {
     _observe();
@@ -88,9 +89,7 @@ class _NDState<T> extends State<NDObserver<T>> {
   @override
   void didUpdateWidget(NDObserver<T> oldWidget) {
     if (oldWidget.subject != widget.subject) {
-      if (_handle != null) {
-        oldWidget.subject?.removeObserver(_handle!);
-      }
+      _handle?.dispose();
       _observe();
     }
     super.didUpdateWidget(oldWidget);
@@ -98,9 +97,9 @@ class _NDState<T> extends State<NDObserver<T>> {
 
   @override
   void dispose() {
-    if (_handle != null) {
-      widget.subject?.removeObserver(_handle!);
-    }
+    _handle?.dispose();
+    _handle = null;
+
     super.dispose();
   }
 

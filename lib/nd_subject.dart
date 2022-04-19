@@ -10,7 +10,6 @@ import 'package:nd_core_utils/nd_core_utils.dart';
 
 typedef NDKey = String;
 typedef NDKeys = List<NDKey>;
-typedef NDHandle = int;
 typedef NDCallback = void Function(NDKeys keys);
 typedef NDCheckRelative = bool Function(NDKey lKey, NDKey rKey);
 
@@ -41,7 +40,7 @@ extension NDCheckRelativeStandard on NDCheckRelative {
   }
 }
 
-abstract class NDSubject {
+abstract class NDSubject implements NDDisposable {
   late final NDCheckRelative isRelative;
 
   NDSubject({NDCheckRelative? isRelative}) {
@@ -55,5 +54,8 @@ abstract class NDSubject {
   void didChange(NDKeys keys, void Function()? action);
 
   @mustCallSuper
+  @override
   void dispose();
 }
+
+abstract class NDHandle implements NDDisposable {}
