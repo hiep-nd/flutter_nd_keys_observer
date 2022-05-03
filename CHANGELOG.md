@@ -16,3 +16,8 @@
 ## 1.0.0
 
 * Updated ```NDHandle```
+
+## 1.0.1
+
+* Added ```NDSubject.bind```, ```NDTextEditingController```.
+* Updated ```NDObserver```.

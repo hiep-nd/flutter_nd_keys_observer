@@ -7,11 +7,22 @@
 
 // ignore_for_file: avoid_print
 
+import 'package:example/common_ui_examples_page.dart';
+import 'package:example/observer_examples_page.dart';
+import 'package:example/simple_subject_examples_page.dart';
 import 'package:flutter/material.dart';
-import 'package:nd_core_utils/nd_core_utils.dart';
-import 'package:nd_keys_observer/nd_keys_observer.dart';
 
 void main(List<String> args) {
+  Widget menuItem(String title, Widget Function(BuildContext) pageBuilder) {
+    return Builder(
+        builder: (context) => Center(
+              child: TextButton(
+                  child: Text(title),
+                  onPressed: () => Navigator.of(context)
+                      .push(MaterialPageRoute(builder: pageBuilder))),
+            ));
+  }
+
   runApp(
     MaterialApp(
       home: Scaffold(
@@ -21,62 +32,18 @@ void main(List<String> args) {
         body: SafeArea(
           child: Column(
             children: [
-              Center(
-                child: TextButton(
-                  onPressed: () {
-                    print('NDSimpleSubject');
-
-                    var subject = NDSimpleSubject.create();
-                    subject.observe(["a", "b.c"], (keys) {
-                      print(keys);
-                      print("--------------");
-                    });
-
-                    print("didChange([\"a\", \"b\", \"c\"])");
-                    subject.didChange(["a", "b", "c"], () {});
-
-                    print("didChange([\"d\"])");
-                    subject.didChange(["d"], () {});
-                  },
-                  child: const Text('Simple Subject'),
-                ),
+              menuItem(
+                'NDSimpleSubject Examples',
+                (_) => const SimpleSubjectExamplesPage(),
               ),
-              // NDObserver
-              Builder(builder: (context) {
-                final subject = NDSimpleSubject.create();
-                final data = NDVariableWrapper('');
-                void setData(String value) {
-                  final keys = value.split(',').map((e) => e.trim()).toList();
-                  subject.didChange(keys, () => data.value = value);
-                }
-
-                final controller = TextEditingController();
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    children: [
-                      TextField(
-                        controller: controller,
-                        textAlign: TextAlign.center,
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          setData(controller.value.text);
-                        },
-                        child: const Text('Update'),
-                      ),
-                      NDObserver<NDVariableWrapper<String>>(
-                        subject: subject,
-                        keys: const ['a', 'c'],
-                        dataContext: data,
-                        builder3: (_, keys, ctx) {
-                          return Text('$keys: \'${ctx?.value}\'');
-                        },
-                      ),
-                    ],
-                  ),
-                );
-              })
+              menuItem(
+                'NDObserver Examples',
+                (_) => const ObserverExamplesPage(),
+              ),
+              menuItem(
+                'Common UI Examples',
+                (_) => const CommonUiExamplesPage(),
+              ),
             ],
           ),
         ),

@@ -59,3 +59,11 @@ abstract class NDSubject implements NDDisposable {
 }
 
 abstract class NDHandle implements NDDisposable {}
+
+extension NDSubjectUtils on NDSubject {
+  NDHandle bind(NDKeys keys, NDCallback callback) {
+    final handle = observe(keys, callback);
+    callback(keys);
+    return handle;
+  }
+}

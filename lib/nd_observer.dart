@@ -7,6 +7,7 @@
 //
 
 import 'package:flutter/widgets.dart';
+import 'package:nd_core_utils/nd_auto_disposable.dart';
 import 'package:nd_keys_observer/nd_subject.dart';
 
 class NDObserver<T> extends StatefulWidget {
@@ -15,8 +16,8 @@ class NDObserver<T> extends StatefulWidget {
   final T? dataContext;
   late final Widget Function(
     BuildContext buildContext,
-    NDSubject? subject,
-    NDKeys? keys,
+    NDSubject subject,
+    NDKeys keys,
     T? dataContext,
   ) _builder;
 
@@ -29,19 +30,19 @@ class NDObserver<T> extends StatefulWidget {
     Widget Function(BuildContext buildContext)? builder1,
     Widget Function(
       BuildContext buildContext,
-      NDKeys? keys,
+      NDKeys keys,
     )?
         builder2,
     Widget Function(
       BuildContext buildContext,
-      NDKeys? keys,
+      NDKeys keys,
       T? dataContext,
     )?
         builder3,
     Widget Function(
       BuildContext buildContext,
-      NDSubject? subject,
-      NDKeys? keys,
+      NDSubject subject,
+      NDKeys keys,
       T? dataContext,
     )?
         builder4,
@@ -69,7 +70,8 @@ class NDObserver<T> extends StatefulWidget {
       _builder = builder4;
       return;
     }
-    _builder = (buildContext, subject, keys, dataContext) => const SizedBox();
+    _builder =
+        (buildContext, subject, keys, dataContext) => const SizedBox.shrink();
   }
 
   @override
@@ -77,9 +79,7 @@ class NDObserver<T> extends StatefulWidget {
 }
 
 class _NDState<T> extends State<NDObserver<T>> {
-  NDHandle? _handle;
-  final NDKeys keys = [];
-
+  // State
   @override
   void initState() {
     _observe();
@@ -88,17 +88,13 @@ class _NDState<T> extends State<NDObserver<T>> {
 
   @override
   void didUpdateWidget(NDObserver<T> oldWidget) {
-    if (oldWidget.subject != widget.subject) {
-      _handle?.dispose();
-      _observe();
-    }
+    _observe();
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   void dispose() {
-    _handle?.dispose();
-    _handle = null;
+    _handle.value = null;
 
     super.dispose();
   }
@@ -106,24 +102,29 @@ class _NDState<T> extends State<NDObserver<T>> {
   @override
   Widget build(BuildContext context) {
     final result =
-        widget._builder(context, widget.subject, keys, widget.dataContext);
-    keys.clear();
+        widget._builder(context, _subject!, _keys, widget.dataContext);
+    _keys.clear();
     return result;
   }
 
+  // Privates
+  final NDAutoDisposable _handle = NDAutoDisposable(null);
+  final NDKeys _keys = [];
+  NDSubject? _subject;
+
   void _observe() {
-    final subject = widget.subject;
+    _subject = widget.subject;
     final keys = widget.keys;
-    if (subject == null || keys == null) {
-      _handle = null;
+    if (_subject == null || keys == null) {
+      _handle.value = null;
       return;
     }
 
-    _handle = subject.observe(keys, (keys) {
+    _handle.value = _subject!.observe(keys, (keys) {
       setState(() {
         for (var key in keys) {
-          if (!this.keys.contains(key)) {
-            this.keys.add(key);
+          if (!_keys.contains(key)) {
+            _keys.add(key);
           }
         }
       });
