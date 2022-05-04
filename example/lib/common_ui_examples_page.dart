@@ -27,7 +27,7 @@ class _CommonUiExamplesPageState extends State<CommonUiExamplesPage> {
     _textController.bindWith(
       subject: _subject,
       keys: ['textValue'],
-      builder0: () {
+      binder0: () {
         if (_textController.text != _textValue) {
           _textController.text = _textValue;
         }

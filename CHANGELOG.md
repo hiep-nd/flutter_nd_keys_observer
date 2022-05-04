@@ -21,3 +21,7 @@
 
 * Added ```NDSubject.bind```, ```NDTextEditingController```.
 * Updated ```NDObserver```.
+
+## 1.0.2
+
+* Renamed  ```NDTextEditingController builder``` -> ```NDTextEditingController binder```.

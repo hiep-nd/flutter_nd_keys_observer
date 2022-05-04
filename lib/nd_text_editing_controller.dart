@@ -20,22 +20,22 @@ class NDTextEditingController<T> extends TextEditingController {
     NDSubject? subject,
     NDKeys? keys,
     T? context,
-    void Function()? builder0,
+    void Function()? binder0,
     void Function(
       NDKeys keys,
     )?
-        builder1,
+        binder1,
     void Function(
       NDKeys keys,
       T? dataContext,
     )?
-        builder2,
+        binder2,
     void Function(
       NDSubject subject,
       NDKeys keys,
       T? dataContext,
     )?
-        builder3,
+        binder3,
   }) {
     if (subject == null || keys == null) {
       _handle.value = null;
@@ -43,14 +43,14 @@ class NDTextEditingController<T> extends TextEditingController {
     }
 
     NDCallback? callback;
-    if (builder0 != null) {
-      callback = (_) => builder0();
-    } else if (builder1 != null) {
-      callback = builder1;
-    } else if (builder2 != null) {
-      callback = (keys) => builder2(keys, context);
-    } else if (builder3 != null) {
-      callback = (keys) => builder3(subject, keys, context);
+    if (binder0 != null) {
+      callback = (_) => binder0();
+    } else if (binder1 != null) {
+      callback = binder1;
+    } else if (binder2 != null) {
+      callback = (keys) => binder2(keys, context);
+    } else if (binder3 != null) {
+      callback = (keys) => binder3(subject, keys, context);
     }
 
     if (callback == null) {
