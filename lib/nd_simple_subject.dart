@@ -22,7 +22,7 @@ class _NDSimpleSubject extends NDSubject {
   final Map<_NDSimpleSubjectHandle, _NDSimpleSubjectObserver> _observers = {};
 
   @override
-  void didChange(NDKeys keys, void Function()? action) {
+  void didChange(NDKeys keys, [void Function()? action]) {
     if (action != null) {
       action();
     }

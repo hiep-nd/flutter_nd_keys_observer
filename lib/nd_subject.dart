@@ -51,7 +51,7 @@ abstract class NDSubject implements NDDisposable {
 
   void removeObserver(NDHandle handle);
 
-  void didChange(NDKeys keys, void Function()? action);
+  void didChange(NDKeys keys, [void Function()? action]);
 
   @mustCallSuper
   @override

@@ -23,7 +23,7 @@ void main() {
     expect(changes, ['c.d']);
     changes.clear();
 
-    subject.didChange(['e'], () {});
+    subject.didChange(['e']);
     expect(changes, []);
     changes.clear();
 

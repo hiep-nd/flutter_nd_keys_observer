@@ -25,3 +25,7 @@
 ## 1.0.2
 
 * Renamed  ```NDTextEditingController builder``` -> ```NDTextEditingController binder```.
+
+## 1.0.3
+
+* Updated ```NDSubject.didChange```. 
