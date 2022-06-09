@@ -10,7 +10,7 @@ import 'package:nd_keys_observer/nd_keys_observer.dart';
 
 void main() {
   void testNDSubject(NDSubject subject) {
-    var changes = <String>[];
+    var changes = NDKeys.empty();
     var handle = subject.observe(["a", "b", "c.d"], (keys) {
       changes = keys;
     });
@@ -32,8 +32,32 @@ void main() {
     expect(handle.isDisposed, true);
   }
 
+  void testNDSubjectUtils(NDSubject subject) {
+    var changes = <String>[];
+    var handle = subject.bind(["a", "b", "c.d"], (keys) {
+      changes = keys;
+    });
+    expect(changes, ["a", "b", "c.d"]);
+    changes.clear();
+
+    subject.didChange(['b', 'a']);
+    expect(changes, ['a', 'b']);
+    changes.clear();
+
+    handle.dispose();
+
+    subject.didChange(['b', 'a']);
+    expect(changes, []);
+    changes.clear();
+  }
+
   test('Test NDSimpleSubject', () {
     final subject = NDSimpleSubject.create();
     testNDSubject(subject);
+  });
+
+  test('Test NDSubjectUtils', () {
+    final subject = NDSimpleSubject.create();
+    testNDSubjectUtils(subject);
   });
 }

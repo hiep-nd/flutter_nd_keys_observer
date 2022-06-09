@@ -66,4 +66,22 @@ extension NDSubjectUtils on NDSubject {
     callback(keys);
     return handle;
   }
+
+  NDHandle tunnel(
+    NDKeys keys,
+    NDSubject toSubject, {
+    NDKeys? toKeys,
+    NDDisposableBag? disposableBag,
+    void Function()? action,
+  }) {
+    final handle = observe(keys, (keys) {
+      if (toKeys != null) {
+        toSubject.didChange(toKeys, action);
+      } else {
+        action?.call();
+      }
+    });
+    disposableBag?.insert(handle);
+    return handle;
+  }
 }

@@ -5,6 +5,7 @@
 //  Created by Nguyen Duc Hiep on 01/12/2021.
 //
 
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:nd_keys_observer/nd_subject.dart';
 
 extension NDSimpleSubject on NDSubject {
@@ -12,7 +13,7 @@ extension NDSimpleSubject on NDSubject {
 }
 
 class _NDSimpleSubjectObserver {
-  final NDKeys keys;
+  final IList<NDKey> keys;
   final NDCallback callback;
 
   _NDSimpleSubjectObserver({required this.keys, required this.callback});
@@ -23,12 +24,10 @@ class _NDSimpleSubject extends NDSubject {
 
   @override
   void didChange(NDKeys keys, [void Function()? action]) {
-    if (action != null) {
-      action();
-    }
+    action?.call();
 
     _observers.forEach((handle, observer) {
-      var observedKeys = NDKeys.empty(growable: true);
+      var observedKeys = <NDKey>[];
       for (var key in observer.keys) {
         if (keys.any((element) => isRelative(element, key))) {
           observedKeys.add(key);
@@ -44,7 +43,7 @@ class _NDSimpleSubject extends NDSubject {
   NDHandle observe(NDKeys keys, NDCallback callback) {
     _NDSimpleSubjectHandle handle = _NDSimpleSubjectHandle(this);
     _observers[handle] =
-        _NDSimpleSubjectObserver(keys: keys, callback: callback);
+        _NDSimpleSubjectObserver(keys: keys.lock, callback: callback);
     return handle;
   }
 

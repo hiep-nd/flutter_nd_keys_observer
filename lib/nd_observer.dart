@@ -109,7 +109,7 @@ class _NDState<T> extends State<NDObserver<T>> {
 
   // Privates
   final NDAutoDisposable _handle = NDAutoDisposable(null);
-  final NDKeys _keys = [];
+  final _keys = <NDKey>[];
   NDSubject? _subject;
 
   void _observe() {
