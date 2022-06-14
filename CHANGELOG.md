@@ -29,3 +29,11 @@
 ## 1.0.3
 
 * Updated ```NDSubject.didChange```. 
+
+## 1.0.4
+
+* Added ```NDSubject.tunnel```.
+
+## 1.0.5
+
+* Fixed build.

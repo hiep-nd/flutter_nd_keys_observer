@@ -7,7 +7,7 @@
 //
 
 import 'package:flutter/widgets.dart';
-import 'package:nd_core_utils/nd_auto_disposable.dart';
+import 'package:nd_core_utils/nd_core_utils.dart';
 import 'package:nd_keys_observer/nd_subject.dart';
 
 class NDObserver<T> extends StatefulWidget {
