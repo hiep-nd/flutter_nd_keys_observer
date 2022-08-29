@@ -35,5 +35,8 @@
 * Added ```NDSubject.tunnel```.
 
 ## 1.0.5
-
 * Fixed build.
+
+## 1.0.6
+* Added ```NDBindable```, ```NDTabController```, ```NDValueNotifier```.
+* Updated ```NDTextEditingController```.

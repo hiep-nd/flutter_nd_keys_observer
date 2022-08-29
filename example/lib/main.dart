@@ -7,6 +7,7 @@
 
 // ignore_for_file: avoid_print
 
+import 'package:example/animation_examples_page.dart';
 import 'package:example/common_ui_examples_page.dart';
 import 'package:example/observer_examples_page.dart';
 import 'package:example/simple_subject_examples_page.dart';
@@ -43,6 +44,10 @@ void main(List<String> args) {
               menuItem(
                 'Common UI Examples',
                 (_) => const CommonUiExamplesPage(),
+              ),
+              menuItem(
+                'Animation Examples',
+                (_) => const AnimationExamplesPage(),
               ),
             ],
           ),
