@@ -23,7 +23,7 @@ class NDTabController extends TabController with NDBindable {
           vsync: vsync,
         );
 
-  void bindWithGetter({
+  void bindWithIndexGetter({
     NDSubject? subject,
     NDKeys? keys,
     required int Function() indexGetter,

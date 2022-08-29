@@ -13,7 +13,7 @@ class NDValueNotifier<T> extends ValueNotifier<T> with NDBindable {
   // NDValueNotifier
   NDValueNotifier(value) : super(value);
 
-  void bindWithTextGetter({
+  void bindWithValueGetter({
     NDSubject? subject,
     NDKeys? keys,
     required T Function() valueGetter,

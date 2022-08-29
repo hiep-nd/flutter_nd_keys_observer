@@ -43,3 +43,6 @@
 
 ## 1.0.7
 * Updated ```NDTabController```.
+
+## 1.0.8
+* Updated ```NDTabController```, ```NDValueNotifier```.
