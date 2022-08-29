@@ -40,3 +40,6 @@
 ## 1.0.6
 * Added ```NDBindable```, ```NDTabController```, ```NDValueNotifier```.
 * Updated ```NDTextEditingController```.
+
+## 1.0.7
+* Updated ```NDTabController```.

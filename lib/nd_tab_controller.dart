@@ -26,13 +26,13 @@ class NDTabController extends TabController with NDBindable {
   void bindWithGetter({
     NDSubject? subject,
     NDKeys? keys,
-    required int Function() getter,
+    required int Function() indexGetter,
   }) {
     bindWith(
       subject: subject,
       keys: keys,
       binder0: () {
-        index = getter();
+        index = indexGetter();
       },
     );
   }
