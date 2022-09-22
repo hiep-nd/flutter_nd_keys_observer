@@ -46,3 +46,6 @@
 
 ## 1.0.8
 * Updated ```NDTabController```, ```NDValueNotifier```.
+
+## 1.0.9
+* Fixed ```NDObserver``` without ```subject/keys/dataContext```.

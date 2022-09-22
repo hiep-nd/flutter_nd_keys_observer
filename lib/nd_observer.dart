@@ -16,8 +16,8 @@ class NDObserver<T> extends StatefulWidget {
   final T? dataContext;
   late final Widget Function(
     BuildContext buildContext,
-    NDSubject subject,
-    NDKeys keys,
+    NDSubject? subject,
+    NDKeys? keys,
     T? dataContext,
   ) _builder;
 
@@ -30,19 +30,19 @@ class NDObserver<T> extends StatefulWidget {
     Widget Function(BuildContext buildContext)? builder1,
     Widget Function(
       BuildContext buildContext,
-      NDKeys keys,
+      NDKeys? keys,
     )?
         builder2,
     Widget Function(
       BuildContext buildContext,
-      NDKeys keys,
+      NDKeys? keys,
       T? dataContext,
     )?
         builder3,
     Widget Function(
       BuildContext buildContext,
-      NDSubject subject,
-      NDKeys keys,
+      NDSubject? subject,
+      NDKeys? keys,
       T? dataContext,
     )?
         builder4,
@@ -101,8 +101,12 @@ class _NDState<T> extends State<NDObserver<T>> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.keys == null) {
+      return widget._builder(context, _subject, null, widget.dataContext);
+    }
+
     final result =
-        widget._builder(context, _subject!, _keys, widget.dataContext);
+        widget._builder(context, _subject, _keys, widget.dataContext);
     _keys.clear();
     return result;
   }
@@ -120,6 +124,7 @@ class _NDState<T> extends State<NDObserver<T>> {
       return;
     }
 
+    _keys.clear();
     _handle.value = _subject!.observe(keys, (keys) {
       setState(() {
         for (var key in keys) {

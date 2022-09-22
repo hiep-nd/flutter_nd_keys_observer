@@ -42,6 +42,12 @@ class ObserverExamplesPage extends StatelessWidget {
                   return Text('$keys: \'${ctx?.value}\'');
                 },
               ),
+              NDObserver(
+                builder0: () {
+                  return const Text(
+                      'NDObserver without subject, keys, and dataContext.');
+                },
+              ),
             ],
           ),
         ),

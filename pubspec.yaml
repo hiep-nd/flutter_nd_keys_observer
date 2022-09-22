@@ -1,6 +1,6 @@
 name: nd_keys_observer
 description: Key and callback observer library.
-version: 1.0.8
+version: 1.0.9
 homepage: https://github.com/hiep-nd/nd_keys_observer
 
 environment:
