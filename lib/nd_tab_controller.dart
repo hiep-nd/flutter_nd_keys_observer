@@ -6,7 +6,7 @@ class NDTabController extends TabController with NDBindable {
   // TabController
   @override
   void dispose() {
-    ndbindableDispose();
+    ndBindableDispose();
     super.dispose();
   }
 

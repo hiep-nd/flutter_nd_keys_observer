@@ -106,14 +106,14 @@ class _NDState<T> extends State<NDObserver<T>> {
     }
 
     final result =
-        widget._builder(context, _subject, _keys, widget.dataContext);
-    _keys.clear();
+        widget._builder(context, _subject, _keysBuilder, widget.dataContext);
+    _keysBuilder.clear();
     return result;
   }
 
   // Privates
   final NDAutoDisposable _handle = NDAutoDisposable(null);
-  final _keys = <NDKey>[];
+  final _keysBuilder = <NDKey>[];
   NDSubject? _subject;
 
   void _observe() {
@@ -124,12 +124,12 @@ class _NDState<T> extends State<NDObserver<T>> {
       return;
     }
 
-    _keys.clear();
+    _keysBuilder.clear();
     _handle.value = _subject!.observe(keys, (keys) {
       setState(() {
         for (var key in keys) {
-          if (!_keys.contains(key)) {
-            _keys.add(key);
+          if (!_keysBuilder.contains(key)) {
+            _keysBuilder.add(key);
           }
         }
       });

@@ -10,9 +10,9 @@ import 'package:nd_keys_observer/nd_keys_observer.dart';
 
 void main() {
   void testNDSubject(NDSubject subject) {
-    var changes = NDKeys.empty();
+    var changes = <NDKey>[];
     var handle = subject.observe(["a", "b", "c.d"], (keys) {
-      changes = keys;
+      changes = keys.toList();
     });
 
     subject.didChange(['b', 'a'], () {});
@@ -35,7 +35,7 @@ void main() {
   void testNDSubjectUtils(NDSubject subject) {
     var changes = <String>[];
     var handle = subject.bind(["a", "b", "c.d"], (keys) {
-      changes = keys;
+      changes = keys.toList();
     });
     expect(changes, ["a", "b", "c.d"]);
     changes.clear();

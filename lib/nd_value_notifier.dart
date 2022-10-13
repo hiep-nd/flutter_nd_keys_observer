@@ -6,7 +6,7 @@ class NDValueNotifier<T> extends ValueNotifier<T> with NDBindable {
   // ValueNotifier
   @override
   void dispose() {
-    ndbindableDispose();
+    ndBindableDispose();
     super.dispose();
   }
 

@@ -5,7 +5,6 @@
 //  Created by Nguyen Duc Hiep on 01/12/2021.
 //
 
-import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:nd_keys_observer/nd_subject.dart';
 
 extension NDSimpleSubject on NDSubject {
@@ -13,10 +12,12 @@ extension NDSimpleSubject on NDSubject {
 }
 
 class _NDSimpleSubjectObserver {
-  final IList<NDKey> keys;
+  final NDKeys keys;
   final NDCallback callback;
 
-  _NDSimpleSubjectObserver({required this.keys, required this.callback});
+  _NDSimpleSubjectObserver({required NDKeys keys, required this.callback})
+      // ignore: unnecessary_this
+      : this.keys = keys.toList(growable: false);
 }
 
 class _NDSimpleSubject extends NDSubject {
@@ -27,14 +28,14 @@ class _NDSimpleSubject extends NDSubject {
     action?.call();
 
     _observers.forEach((handle, observer) {
-      var observedKeys = <NDKey>[];
+      var builder = <NDKey>[];
       for (var key in observer.keys) {
         if (keys.any((element) => isRelative(element, key))) {
-          observedKeys.add(key);
+          builder.add(key);
         }
       }
-      if (observedKeys.isNotEmpty) {
-        observer.callback(observedKeys);
+      if (builder.isNotEmpty) {
+        observer.callback(builder);
       }
     });
   }
@@ -43,7 +44,7 @@ class _NDSimpleSubject extends NDSubject {
   NDHandle observe(NDKeys keys, NDCallback callback) {
     _NDSimpleSubjectHandle handle = _NDSimpleSubjectHandle(this);
     _observers[handle] =
-        _NDSimpleSubjectObserver(keys: keys.lock, callback: callback);
+        _NDSimpleSubjectObserver(keys: keys, callback: callback);
     return handle;
   }
 

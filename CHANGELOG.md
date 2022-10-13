@@ -49,3 +49,6 @@
 
 ## 1.0.9
 * Fixed ```NDObserver``` without ```subject/keys/dataContext```.
+
+## 1.0.10
+* Removed ```fast_immutable_collections.dart```

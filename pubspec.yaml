@@ -1,6 +1,6 @@
 name: nd_keys_observer
 description: Key and callback observer library.
-version: 1.0.9
+version: 1.0.10
 homepage: https://github.com/hiep-nd/nd_keys_observer
 
 environment:
@@ -12,8 +12,7 @@ dependencies:
     sdk: flutter
 
   nd_core_utils: ^1.0.6
-  fast_immutable_collections: ^7.0.0
-
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

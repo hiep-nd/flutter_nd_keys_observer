@@ -4,10 +4,10 @@ import 'package:nd_keys_observer/nd_subject.dart';
 mixin NDBindable implements NDDisposable {
   // NDDisposable
   @override
-  void dispose() => ndbindableDispose();
+  void dispose() => ndBindableDispose();
 
   @override
-  bool get isDisposed => ndbindableIsDisposed();
+  bool get isDisposed => ndBindableIsDisposed();
 
   // NDBindable
   void bindWith<T>({
@@ -56,11 +56,11 @@ mixin NDBindable implements NDDisposable {
   }
 
   // Unshadow methods
-  void ndbindableDispose() {
+  void ndBindableDispose() {
     _handle.value = null;
   }
 
-  bool ndbindableIsDisposed() {
+  bool ndBindableIsDisposed() {
     return _handle.value == null;
   }
 

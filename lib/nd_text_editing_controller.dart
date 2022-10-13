@@ -13,7 +13,7 @@ class NDTextEditingController extends TextEditingController with NDBindable {
   // TextEditingController
   @override
   void dispose() {
-    ndbindableDispose();
+    ndBindableDispose();
     super.dispose();
   }
 

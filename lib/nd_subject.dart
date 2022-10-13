@@ -9,7 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:nd_core_utils/nd_core_utils.dart';
 
 typedef NDKey = String;
-typedef NDKeys = List<NDKey>;
+typedef NDKeys = Iterable<NDKey>;
 typedef NDCallback = void Function(NDKeys keys);
 typedef NDCheckRelative = bool Function(NDKey lKey, NDKey rKey);
 
