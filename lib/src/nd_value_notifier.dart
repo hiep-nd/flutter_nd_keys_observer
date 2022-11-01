@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nd_keys_observer/nd_bindable.dart';
-import 'package:nd_keys_observer/nd_subject.dart';
+import 'package:nd_keys_observer/src/nd_bindable.dart';
+import 'package:nd_keys_observer/src/nd_subject.dart';
 
 class NDValueNotifier<T> extends ValueNotifier<T> with NDBindable {
   // ValueNotifier

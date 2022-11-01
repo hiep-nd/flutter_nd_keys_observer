@@ -1,5 +1,5 @@
 import 'package:nd_core_utils/nd_core_utils.dart';
-import 'package:nd_keys_observer/nd_subject.dart';
+import 'package:nd_keys_observer/src/nd_subject.dart';
 
 mixin NDBindable implements NDDisposable {
   // NDDisposable

@@ -5,7 +5,7 @@
 //  Created by Nguyen Duc Hiep on 01/12/2021.
 //
 
-import 'package:nd_keys_observer/nd_subject.dart';
+import 'package:nd_keys_observer/src/nd_subject.dart';
 
 extension NDSimpleSubject on NDSubject {
   static NDSubject create() => _NDSimpleSubject();
